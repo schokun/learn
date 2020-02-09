@@ -2,7 +2,6 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <h1> i am created Vue.js</h1>
-    <HelloWorld></HelloWorld>
     <Profile :user="user" @save-user="user = $event"></Profile>
   </div>
 </template>
@@ -13,7 +12,7 @@ import Profile from './components/user/profile.vue'
 export default {
   name: 'app',
   components: {
-    HelloWorld, Profile
+    Profile
   },
   data(){
     return {
