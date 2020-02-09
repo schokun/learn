@@ -5,197 +5,107 @@
 	<title>dz3</title>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
-<style>
-.flex{
-	display: flex;
-	justify-content: center;
-}
-.left, .right {
-	width: 700px;
-	height: 700px;
-	border: 1px solid;
-	margin: 10px;
-	padding: 10px;
-}
-div{
-	font-size: 18px;
 
-}
-</style>
+
+	
+	<div id="app">
+
+		<h1>{{ name }}</h1>
+		<new-component></new-component>
+		<comp></comp>
+	</div>
+
+
+	<div id="app2">
+
+		<h1>Приложение - 2</h1>
+		<new-component></new-component>
+				<comp></comp>
+	</div>
+
+
+
+
 <body>
 
 
 
-	<div class="flex">
-		<div class="left">
-			<h1>Приложение - 1</h1>
-			<div id="app">
-				<!-- Задание1 v-if -->
-				<div v-if="task1">
-					Всем привет, я первый
-				</div>
-				<div v-else>
-					Всем привет, я второй
-				</div>
-				<button @click="task1 = !task1">Задание 1 v-if</button>
-				<hr>
-				<!-- Задание1 v-if -->
-
-				<!-- задание3 computed-->
-				<p> {{ countSymb }} </p>
-				<span>Обрезать строку на : </span><input type="text" v-model="symb"> <span>Символ</span>
-				<hr>
-				<!-- задание3-->
-
-
-				<!-- задание 5  повлиять на второй экземпляр из первого -->
-				<div>
-					<span >Поменять имя {{names[0].name}}
-					из приложения 2 на  </span> <input v-model="new_name" type="text"> <button @click="changeName('new_name')">change</button>
-				</div>
-				<div>
-					<span >Поменять имя {{names[1].name}} 
-					из приложения 2 на  </span> <input v-model="new_name2" type="text"> <button @click="changeName('new_name2')">change</button>
-				</div>
-				<hr>
-				<!-- задание 4-5 -->
-
-				<!-- задание6 $ref-->
-				<input type='text' ref='name'>
-				<button @click='focus'>Focus input</button>
-				<hr>
-				<!-- задание6 -->
-
-				<!-- задание7 vue - component -->
-					<v-time></v-time>
-				<!-- задание7 -->
-
-			</div>
-		</div>
-
-
-
-
-		<div class="right">
-			<h1>Приложение - 2</h1>
-			<div id="app2">
-				<!-- задание 2 , 4 Перебор v-for масива, обьекта и наблюдатель watch -->
-				<h2>Arrays</h2>
-				<ul>
-					<li v-for="(array , index) in arrays.slice(count)">{{ index + 1 }} - {{ array }} </li>
-				</ul>
-				<span>Показывать элементов массива</span> 
-				<select name="" id="" v-model="count">
-					<option value="3">0</option>
-					<option value="2">1</option>
-					<option value="1">2</option>
-					<option value="0">3</option>
-				</select>
-				<hr>
-				<h2>Object</h2>
-				<ul>
-					<li v-for="(obj) in objects"> name - {{obj.name}} , age - {{obj.age}}  , country -  {{obj.country}} </li>
-				</ul>
-				<!-- задание2 -->
-
-				<hr>
-				<v-time></v-time>
-				<hr>
-
-
-				<!-- задание8 жизненый цикл-->
-				<h3> {{life_task}} </h3>
-				<!-- задание8 жизненый цикл-->
-			</div>
-		</div>
-	</div>
-
 	
-	
+
 	<script>
 
-		Vue.component('v-time', {
-			data: function () {
+
+		Vue.component('new-component', {
+			data() {
 				return {
-					time : new Date()
-				}
-			},
-			template: '<div> {{ time }} </div>'
-		})
-
-
-		//приложение2
-		var vm2 = new Vue({
-			el: '#app2',
-			data: {
-				life_task: 'Обнови страницу и глянь',
-				count : 2,
-				arrays : ['Апельсин', 'яблоко', 'Мандарин'],
-				objects : [
-				{
-					name : 'Ivan',
-					age : 23,
-					country : 'Ukraine'
-				},
-				{
-					name : 'Pavel',
-					age : 25,
-					country : 'Russia'
-				}
-				]
-
-			},
-			watch: {
-				count(){
-					return console.log('option arrays changed')
+					msg: ''
 				}
 			},
 
-			created(){
-				return this.life_task  = 'Переменная была перезаписана в этапе жизненого цикла `created`'
-			}
 
+			template: `
+				<div>
+					<h1>Компонент</h1>
+					<input type="text" v-model="msg" />
+					<div> text:  {{  msg }} </div>
+					<hr />
+				</div>
+			`
 
 		})
 
-		//приложение1
-		var vm = new Vue({
-			el:'#app',
-			data: {
-				task1: true,
-				message: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. ',
-				symb: 0,
-				new_name : '',
-				new_name2 : '',
-				names: vm2.objects,
-
+		let component =  {
+			data() {
+				return{
+					checkform: false
+				}
 
 			},
-			computed: {
-				countSymb(){
-					return (!isNaN(+this.symb)) ?  this.message.substr(0 , this.message.length - this.symb - 1)  : 'Введи число , а не букву!!'		
-				},
-			},
-
 			methods: {
-				changeName(user_name){
 
-					if(user_name == 'new_name'){
-
-						(this.new_name) ? vm2.objects[0].name = this.new_name : 'false'
-
-					} else if (user_name == 'new_name2'){
-
-						(this.new_name2) ? vm2.objects[1].name = this.new_name2 : 'false'
-					}
-
-				},
-				focus () {
-					this.$refs.name.focus()
-				},
 			},
+			template: `<div>
+			<hr />
+				<h1> Это локальный Компонент </h1>
+				<button @click="checkform = true"> check-form </button>
+
+				<template v-if="checkform">
+					<h1> НЕ РАБОЧАЯ ФОРМА</h1>
+					<form >
+						<label for="">email</label>
+						<input type="text" />
+
+						<label for="">pass</label>
+						<input type="text" />
+
+						<button type="button">Войти</button>
+						<button type="button" @click = "checkform = false">Закрыть</button>
+					</form>
+				</template>
+			 <hr />
+			 </div>`
+		}
+
+		vm1  = new Vue({
+			el:  '#app',
+			data: {
+				name: 'Приложение 1'
+			},
+			components: {
+				'comp' : component
+			}
+			
 		})
+
+		vm2 = new Vue({
+			el: '#app2',
+			data:{
+
+			}
+		})
+
 
 	</script>
+
 </body>
 </html>
