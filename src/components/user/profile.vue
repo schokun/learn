@@ -3,12 +3,14 @@
         <h1>User Profile</h1>
         <p><strong>Name:</strong>{{user.name}}</p>
         <p><strong>Surname:</strong>{{user.surname}}</p>
+
         <div v-if="!showForm">
             <button @click="showForm=true">Edit</button>
         </div>
         <div v-else>
             <profile-Form :user='user' @save-user='saveUser($event)' @cancel='showForm= false'></profile-Form>
         </div>
+
     </div>
 </template>
 
