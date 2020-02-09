@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import Profile from './components/user/profile.vue'
 
 export default {
