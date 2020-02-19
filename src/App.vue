@@ -1,41 +1,19 @@
 <template>
-    <div>
-        <div id="app">
-            <!--Глобальный компонент-->
-            <get_time></get_time>
-            <!--article-->
-            <Article :user="user" :news="news"></Article>
-            <Status :bacground="stat.bacground" :msg="stat.msg" v-if="showStat" @cancel="showStat = false"></Status>
-        </div>
-
-        <!--footer-->
-        <myFooter>
-            <h1>FOOTER</h1>
-            <div class="logo"><strong>logo</strong></div>
-
-            <div slot="copy">
-                <div class="copy"> {{ copy }}</div>
-            </div>
-        </myFooter>
-
+    <div id="app">
+        <router-link to='/' active-class="font-bold mr-5" exact>Home</router-link>
+        <router-link to='/favorite' active-class="font-bold ml-5">Избранное</router-link>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
 
 
-    import Article from './components/news/Article.vue'
-    import Status from './components/status/StatusList.vue'
-    import myFooter from './Footer.vue'
-
     //шина событий
     import {eventBus} from "./main"
 
     export default {
         name: 'app',
-        components: {
-            Article, Status, myFooter,
-        },
         data() {
             return {
                 user: {
@@ -65,16 +43,6 @@
     }
 </script>
 
-<style>
-    #app {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        color: #2c3e50;
-        margin-top: 60px;
-        min-height: 730px;
-
-
-    }
+<style src="./assets/css/tailwind.css">
 
 </style>
