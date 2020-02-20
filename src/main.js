@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Time  from './components/Time.vue'
+// import Time  from './components/Time.vue'
 import VueRouter from 'vue-router'
 import router from './routes'
+import store from './store'
 
 
-//Глобальный компонент
-Vue.component('get_time', Time)
+
+// //Глобальный компонент
+// Vue.component('get_time', Time)
 
 // Vue Router
 Vue.use(VueRouter)
@@ -20,5 +22,5 @@ export const eventBus = new Vue()
 
 new Vue({
   render: h => h(App),
-  router
+  router, store
 }).$mount('#app')

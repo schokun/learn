@@ -1,7 +1,7 @@
 <template>
     <div id="carform">
         <div class="coutry">
-            <select name="#" id="" v-model="params.county" @change="carCounry">
+            <select name="#"  v-model="params.county" @change="carCounry">
                 <option value="" selected>Не выбрано</option>
                 <option value="Германия">Германия</option>
                 <option value="Украина">Украина</option>
@@ -9,7 +9,7 @@
         </div>
 
         <div class="name">
-            <select name="#" id="" v-model="params.name" @change="carCounry">
+            <select name="#"  v-model="params.name" @change="carCounry">
                 <option value="" selected >Не выбрано</option>
                 <option value="Audi">Audi</option>
                 <option value="Vaz">Vaz</option>
@@ -18,7 +18,7 @@
 
 
         <div class="year">
-            <select name="#" id="" v-model="params.year" @change="carCounry">
+            <select name="#" v-model="params.year" @change="carCounry">
                 <option value="" selected >Не выбрано</option>
                 <option value="2010">2010</option>
                 <option value="2019">2019</option>
@@ -42,7 +42,8 @@
 
         methods: {
             carCounry(){
-                this.$emit('car-params' , this.params)
+                this.$store.commit('params', this.params )
+                this.$store.commit('CarFilter')
             }
         }
     }
