@@ -58,10 +58,12 @@
             }
         },
         created() {
+
             eventBus.$on('show-status', (stat) => {
                 this.stat = stat;
                 this.showStat = true
-            })
+            })   
+            this.$store.commit('fistAuth') 
         }
     }
 </script>
