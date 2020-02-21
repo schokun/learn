@@ -13,10 +13,15 @@ import store from './store'
 // Vue Router
 Vue.use(VueRouter)
 
+//filter
+Vue.filter('readMore',  (str, length, suffix) => str.substring(0, length) + suffix);
+Vue.filter('toUan' , val => Math.ceil(val * 24.4));
 
 
-Vue.config.productionTip = false
-export const eventBus = new Vue()
+Vue.config.productionTip = false;
+
+//шина событий
+export const eventBus = new Vue();
 
 
 

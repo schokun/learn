@@ -34,8 +34,6 @@
                 </div>
             </div>
         </nav>
-
-
         <router-view></router-view>
     </div>
 </template>
@@ -58,7 +56,6 @@
             }
         },
         created() {
-
             eventBus.$on('show-status', (stat) => {
                 this.stat = stat;
                 this.showStat = true
