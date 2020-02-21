@@ -1,5 +1,5 @@
 <template>
-    <div id="carform" class="w-1/6 border-r border-b pr-5">
+    <div id="carform" class="w-1/6 border-r border-b pr-5 mr-20">
         <div class="coutry mt-5">
             <label class=" uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Страна производитель</label>
             <select
@@ -49,16 +49,14 @@
                     @change="carCounry"
                     class=" appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             >
-                <option value="" selected>Не выбрано</option>
-                <option value="2008">2008</option>
-                <option value="2010">2010</option>
-                <option value="2011">2011</option>
-                <option value="2013">2013</option>
-                <option value="2014">2014</option>
-                <option value="2016">2016</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
+                <option value="" >Не выбрано</option>
+                <option
+                        v-for="(year, id) in years"
+                        :value="year"
+                        :key="id"
+                >
+                    {{ year }}
+                </option>
             </select>
         </div>
         <div class="body mt-5">
@@ -121,13 +119,26 @@
                 }
             }
         },
-
+        computed: {
+          years(){
+              return this.$store.getters.GetYear
+          }
+        },
         methods: {
             carCounry() {
                 this.$store.commit('params', this.params)
                 this.$store.commit('CarFilter')
-            }
-        }
+            },
+            isTrue(val){
+                if(val == this.params.year) {
+                    console.log(val)
+                    return true
+                }
+                return false
+            },
+
+        },
+
     }
 </script>
 

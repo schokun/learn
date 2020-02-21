@@ -11,12 +11,12 @@
 
         <div>
             <div class="car-ifno" :key="item.id" v-for="item in CarInfoById">
-                <div class="flex">
+                <div class="flex border-b pb-2">
 
                     <div class="img">
                         <img :src="item.img" alt="">
                     </div>
-                    <div class="desc-car  p-5 ml-5">
+                    <div class="desc-car  p-5 ml-5 relative">
                         <div class="body">
                             <span class="text-gray-500 m-5">Тип кузова:</span> {{ item.body }}
                         </div>
@@ -34,6 +34,22 @@
                         </div>
                         <div class="county mt-3">
                             <span class="text-gray-500 m-5">Страна производитель:</span> {{ item.county }}
+                        </div>
+                        <div class="addLocal absolute bottom-0 ml-4" v-if="item.status && vf(item.id)">
+                            <button
+                                    class=" mt-12 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
+                                    active-class="font-bold "
+                                    @click="addTolocal(item.id) ,  item.status = false "
+                            >
+                                В избранное
+                            </button>
+                        </div>
+                        <div class="delLocal absolute bottom-0 ml-4" v-else>
+                            <button class=" mt-12 bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                                    @click="item.status = true , DelFromLocal(item.id)"
+                            >
+                                Удалить
+                            </button>
                         </div>
                     </div>
 
@@ -59,6 +75,15 @@
             CarInfoById() {
                 return this.$store.getters.CarInfo(this.carId)
             },
+            FromLocal(){
+                return this.$store.getters.FromLocal
+            },
+            GetResult(){
+                return this.$store.getters.GetResult
+            },
+            GetCars(){
+                return this.$store.getters.GetCars
+            }
 
         },
         watch: {
@@ -70,7 +95,24 @@
             backhome() {
                 this.$router.push({name: 'Home'})
             },
+            vf(id) {
+                if (this.FromLocal) {
+                    return Boolean(!this.FromLocal.find(cars => cars.id == id))
+                }
+
+            },
+            addTolocal(el) {
+                this.$store.commit('addTolocal', {el, res: this.CarInfoById, cars: this.GetCars})
+                this.$store.commit('FromLocal', {el, res: this.CarInfoById, cars: this.GetCars})
+            },
+            DelFromLocal(el) {
+                console.log(el)
+                this.$store.commit('DelFromLocal', el)
+            }
         },
+        created() {
+            this.$store.commit('FromLocal')
+        }
 
 
     }

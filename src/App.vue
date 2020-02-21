@@ -2,7 +2,9 @@
     <div id="app">
         <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
             <div class="flex items-center flex-shrink-0 text-white mr-6">
-                <img src="https://freeiconshop.com/wp-content/uploads/edd/car-flat.png" alt="" class="w-10">
+                <router-link to="/">
+                    <img src="https://freeiconshop.com/wp-content/uploads/edd/car-flat.png" alt="" class="w-10">
+                </router-link>
             </div>
             <div class="block lg:hidden">
                 <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
@@ -59,8 +61,8 @@
             eventBus.$on('show-status', (stat) => {
                 this.stat = stat;
                 this.showStat = true
-            })   
-            this.$store.commit('fistAuth') 
+            })
+            this.$store.commit('fistAuth')
         }
     }
 </script>
