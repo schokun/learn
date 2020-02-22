@@ -39,7 +39,7 @@ export default {
                 county: 'Германия',
                 status: true,
                 price: 32700,
-                body: 'Кроссовер ',
+                body: 'Кроссовер',
                 box: 'Автомат',
                 fuel: 'Дизель',
                 power: '2.0 л (150 л.с. • 110.3 кВт)',
